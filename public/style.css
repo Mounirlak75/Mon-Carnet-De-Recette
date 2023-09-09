@@ -1,0 +1,28 @@
+
+.background-section {
+    background-image: url(assets/images/backgroundMCDR.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    color:rgb(255, 255, 255);
+}
+
+.navbar-brand {
+    color:rgb(200, 180, 150) 
+}
+.lead{
+    text-align: center;
+    flex-direction: column;
+}
+.illustration-img-home {
+    max-width: 250px;
+    width: 100%;
+    max-height: 300px;
+    height: 100%;
+}
+.container{
+    color: rgb(169, 80, 3);
+}
+
+
