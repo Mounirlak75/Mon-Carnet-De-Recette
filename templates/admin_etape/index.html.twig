@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etape index{% endblock %}
+
+{% block body %}
+    <h1>Etape index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Text</th>
+                <th>Image</th>
+                <th>Temps</th>
+                <th>Numero_etape</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for etape in etapes %}
+            <tr>
+                <td>{{ etape.id }}</td>
+                <td>{{ etape.text }}</td>
+                <td>{{ etape.image }}</td>
+                <td>{{ etape.temps }}</td>
+                <td>{{ etape.numeroEtape }}</td>
+                <td>
+                    <a href="{{ path('app_admin_etape_show', {'id': etape.id}) }}">show</a>
+                    <a href="{{ path('app_admin_etape_edit', {'id': etape.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_etape_new') }}">Create new</a>
+{% endblock %}

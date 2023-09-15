@@ -1,15 +1,16 @@
-
+/********************* IMAGE DE LA HOME PAGE  *****************/
 .background-section {
-    background-image: url(assets/images/backgroundMCDR.jpg);
+    background-image: url(../assets/images/backgroundMCDR.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
     color:rgb(255, 255, 255);
+    
 }
 
 .navbar-brand {
-    color:rgb(200, 180, 150) 
+    color:rgb(163, 102, 10) 
 }
 .lead{
     text-align: center;
@@ -22,7 +23,12 @@
     height: 100%;
 }
 .container{
-    color: rgb(169, 80, 3);
+    color:rgb(200 180 150);
 }
 
+/* Path: public/css/style.css */
 
+footer{
+    margin-top: 100px;
+    padding: 0;
+}

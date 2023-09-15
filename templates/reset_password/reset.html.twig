@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reinitialiser votre mot de passe
+{% endblock %}
+
+{% block body %}
+	{% block navbar %}
+		{% include 'includes/navbar.html.twig' %}
+	{% endblock %}
+	<style>
+		body {
+			padding-top: 150px;
+		}
+	</style>
+	<div class="container ">
+		<h1 class="d-flex align-items-center justify-content-center" >Reinitialiser votre mot de passe</h1>
+        <div class="center d-flex align-items-center justify-content-center" >
+		{{ form_start(resetForm)  }}
+		{{ form_row(resetForm.plainPassword) }}
+		<button class="btn btn-primary  d-flex align-items-center justify-content-center">Reinitialiser mot de passe</button>
+		{{ form_end(resetForm) }}
+        </div>
+	</div>
+	{% block footer %}
+		{% include 'includes/footer.html.twig' %}
+	{% endblock %}
+{% endblock %}
