@@ -78,4 +78,5 @@ class AdminCategorieController extends AbstractController
 
         return $this->redirectToRoute('app_admin_categorie_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

@@ -26,6 +26,9 @@ class Commentaire
     #[ORM\ManyToOne(inversedBy: 'commentaire')]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?Recette $Recette = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,4 +81,22 @@ class Commentaire
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->auteur;
+    }
+
+    public function getRecette(): ?Recette
+    {
+        return $this->Recette;
+    }
+
+    public function setRecette(?Recette $Recette): static
+    {
+        $this->Recette = $Recette;
+
+        return $this;
+    }
+
 }

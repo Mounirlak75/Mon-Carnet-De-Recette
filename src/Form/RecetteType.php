@@ -19,8 +19,7 @@ class RecetteType extends AbstractType
             ->add('difficulte')
             ->add('ingredient')
             ->add('user')
-            ->add('etape')
-            ->add('ingredients')
+            ->add('categorie')
         ;
     }
 

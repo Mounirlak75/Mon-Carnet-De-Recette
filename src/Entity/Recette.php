@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\RecetteRepository;
@@ -38,20 +37,15 @@ class Recette
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Categorie::class)]
-    private Collection $categorie;
+    #[ORM\ManyToOne(inversedBy: 'recettes')]
+    private ?Categorie $categorie = null;
 
-    #[ORM\ManyToMany(targetEntity: Etape::class, inversedBy: 'recettes')]
-    private Collection $etape;
-
-    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recettes')]
-    private Collection $ingredients;
+    #[ORM\OneToMany(mappedBy: 'Recettes', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
 
     public function __construct()
     {
-        $this->categorie = new ArrayCollection();
-        $this->etape = new ArrayCollection();
-        $this->ingredients = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,80 +137,127 @@ class Recette
         return $this;
     }
 
-    /**
-     * @return Collection<int, Categorie>
-     */
-    public function getCategorie(): Collection
+    // /**
+    //  * @return Collection<int, Categorie>
+    //  */
+    // public function getCategorie(): Collection
+    // {
+    //     return $this->categorie;
+    // }
+
+    // public function addCategorie(Categorie $categorie): static
+    // {
+    //     if (!$this->categorie->contains($categorie)) {
+    //         $this->categorie->add($categorie);
+    //         $categorie->setRecette($this);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeCategorie(Categorie $categorie): static
+    // {
+    //     if ($this->categorie->removeElement($categorie)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($categorie->getRecette() === $this) {
+    //             $categorie->setRecette(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
+
+    // /**
+    //  * @return Collection<int, Etape>
+    //  */
+    // public function getEtape(): Collection
+    // {
+    //     return $this->etape;
+    // }
+
+    // public function addEtape(Etape $etape): static
+    // {
+    //     if (!$this->etape->contains($etape)) {
+    //         $this->etape->add($etape);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeEtape(Etape $etape): static
+    // {
+    //     $this->etape->removeElement($etape);
+
+    //     return $this;
+    // }
+
+    // /**
+    //  * @return Collection<int, Ingredient>
+    //  */
+    // public function getIngredients(): Collection
+    // {
+    //     return $this->ingredients;
+    // }
+
+    // public function addIngredient(Ingredient $ingredient): static
+    // {
+    //     if (!$this->ingredients->contains($ingredient)) {
+    //         $this->ingredients->add($ingredient);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeIngredient(Ingredient $ingredient): static
+    // {
+    //     $this->ingredients->removeElement($ingredient);
+
+    //     return $this;
+    // }
+
+    public function __toString(): string
+    {
+        return $this->titre;
+    }
+
+    public function getCategorie(): ?Categorie
     {
         return $this->categorie;
     }
 
-    public function addCategorie(Categorie $categorie): static
+    public function setCategorie(?Categorie $categorie): static
     {
-        if (!$this->categorie->contains($categorie)) {
-            $this->categorie->add($categorie);
-            $categorie->setRecette($this);
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): static
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setRecette($this);
         }
 
         return $this;
     }
 
-    public function removeCategorie(Categorie $categorie): static
+    public function removeCommentaire(Commentaire $commentaire): static
     {
-        if ($this->categorie->removeElement($categorie)) {
+        if ($this->commentaires->removeElement($commentaire)) {
             // set the owning side to null (unless already changed)
-            if ($categorie->getRecette() === $this) {
-                $categorie->setRecette(null);
+            if ($commentaire->getRecette() === $this) {
+                $commentaire->setRecette(null);
             }
         }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Etape>
-     */
-    public function getEtape(): Collection
-    {
-        return $this->etape;
-    }
-
-    public function addEtape(Etape $etape): static
-    {
-        if (!$this->etape->contains($etape)) {
-            $this->etape->add($etape);
-        }
-
-        return $this;
-    }
-
-    public function removeEtape(Etape $etape): static
-    {
-        $this->etape->removeElement($etape);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Ingredient>
-     */
-    public function getIngredients(): Collection
-    {
-        return $this->ingredients;
-    }
-
-    public function addIngredient(Ingredient $ingredient): static
-    {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients->add($ingredient);
-        }
-
-        return $this;
-    }
-
-    public function removeIngredient(Ingredient $ingredient): static
-    {
-        $this->ingredients->removeElement($ingredient);
 
         return $this;
     }

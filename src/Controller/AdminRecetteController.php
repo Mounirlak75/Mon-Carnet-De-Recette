@@ -78,4 +78,5 @@ class AdminRecetteController extends AbstractController
 
         return $this->redirectToRoute('app_admin_recette_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }
