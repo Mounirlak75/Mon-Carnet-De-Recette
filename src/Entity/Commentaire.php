@@ -14,43 +14,31 @@ class Commentaire
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $auteur = null;
-
     #[ORM\Column(type: Types::TEXT)]
     private ?string $contenu = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\ManyToOne(inversedBy: 'commentaire')]
+    #[ORM\ManyToOne(inversedBy: 'commentairesPostes')]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
-    private ?Recette $Recette = null;
+    private ?Recette $recette = null;
 
+    // Méthode pour obtenir l'ID du commentaire
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getAuteur(): ?string
-    {
-        return $this->auteur;
-    }
-
-    public function setAuteur(string $auteur): static
-    {
-        $this->auteur = $auteur;
-
-        return $this;
-    }
-
+    // Méthode pour obtenir le contenu du commentaire
     public function getContenu(): ?string
     {
         return $this->contenu;
     }
 
+    // Méthode pour définir le contenu du commentaire
     public function setContenu(string $contenu): static
     {
         $this->contenu = $contenu;
@@ -58,11 +46,13 @@ class Commentaire
         return $this;
     }
 
+    // Méthode pour obtenir la date du commentaire
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
+    // Méthode pour définir la date du commentaire
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
@@ -70,11 +60,13 @@ class Commentaire
         return $this;
     }
 
+    // Méthode pour obtenir l'utilisateur qui a laissé le commentaire
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    // Méthode pour définir l'utilisateur qui a laissé le commentaire
     public function setUser(?User $user): static
     {
         $this->user = $user;
@@ -82,21 +74,17 @@ class Commentaire
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->auteur;
-    }
-
+    // Méthode pour obtenir la recette associée à ce commentaire
     public function getRecette(): ?Recette
     {
-        return $this->Recette;
+        return $this->recette;
     }
-
-    public function setRecette(?Recette $Recette): static
+    
+    // Méthode pour définir la recette associée à ce commentaire
+    public function setRecette(?Recette $recette): static
     {
-        $this->Recette = $Recette;
-
+        $this->recette = $recette;
+    
         return $this;
     }
-
 }

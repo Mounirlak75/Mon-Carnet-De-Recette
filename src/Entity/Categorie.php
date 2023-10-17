@@ -26,16 +26,19 @@ class Categorie
         $this->recettes = new ArrayCollection();
     }
 
+    // Méthode pour obtenir l'ID de la catégorie
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    // Méthode pour obtenir le nom de la catégorie
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    // Méthode pour définir le nom de la catégorie
     public function setName(string $name): static
     {
         $this->name = $name;
@@ -43,6 +46,7 @@ class Categorie
         return $this;
     }
 
+    // Méthode pour obtenir la collection de recettes liées à cette catégorie
     /**
      * @return Collection<int, Recette>
      */
@@ -51,6 +55,7 @@ class Categorie
         return $this->recettes;
     }
 
+    // Méthode pour ajouter une recette à la catégorie
     public function addRecette(Recette $recette): static
     {
         if (!$this->recettes->contains($recette)) {
@@ -61,10 +66,11 @@ class Categorie
         return $this;
     }
 
+    // Méthode pour supprimer une recette de la catégorie
     public function removeRecette(Recette $recette): static
     {
         if ($this->recettes->removeElement($recette)) {
-            // set the owning side to null (unless already changed)
+            // Définir le côté propriétaire à null (sauf si cela a déjà été modifié)
             if ($recette->getCategorie() === $this) {
                 $recette->setCategorie(null);
             }
@@ -73,6 +79,7 @@ class Categorie
         return $this;
     }
 
+    // Méthode magique pour obtenir une représentation en chaîne de la catégorie (utilisée pour l'affichage)
     public function __toString(): string
     {
         return $this->name;

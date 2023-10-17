@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-6 mx-auto mt-5">
+			<div class="table-responsive table-sm shadow p-4 mb-4 bg-white rounded">
+				<table class="table table-borderless table-user-information">
+					<tbody>
+						<!-- Nom -->
+						<tr>
+							<td>
+								<strong>
+									<i class="fas fa-user fa-lg mr-2" style="color: #c8bf92;"></i>
+									Nom :</strong>
+							</td>
+							<td class="text-primary font-weight-bold">{{ user.name }}</td>
+						</tr>
+						<!-- Email -->
+						<tr>
+							<td>
+								<strong>
+									<i class="fas fa-envelope fa-lg mr-2" style="color: #c8bf92;"></i>
+									E-mail :</strong>
+							</td>
+							<td class="text-primary font-weight-bold">{{ user.email }}</td>
+						</tr>
+						<!-- Recettes -->
+						<tr>
+							<td>
+								<strong>
+									<i class="fas fa-utensils fa-lg mr-2" style="color: #c8bf92;"></i>
+									Mes recettes :</strong>
+							</td>
+							<td class="text-primary">
+								<a href="{{ path('mes_recettes') }}" class="btn btn-outline-primary btn-sm">Voir mes recettes</a>
+							</td>
+						</tr>
+						<!-- Gérer mon compte -->
+						<tr>
+							<td>
+								<strong>
+									<i class="fas fa-user-check fa-lg mr-2" style="color: #c8bf92;"></i>
+									Gérer mon compte :</strong>
+							</td>
+							<td class="text-primary">
+								<a href="{{ path('app_profile_edit') }}" class="btn btn-outline-primary btn-sm">Modifier mes coordonnées</a>
+							</td>
+						</tr>
+						<!-- Supprimer mon compte -->
+						<tr>
+							<td>
+								<strong>
+									<i class="fas fa-trash-alt fa-lg mr-2 text-danger"></i>
+									Supprimer mon compte :</strong>
+							</td>
+							<td>
+								<a href="#deleteUserConfirm" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUserConfirm">Supprimer</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

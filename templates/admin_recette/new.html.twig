@@ -1,11 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Recette{% endblock %}
+{% block title %}Créer une recette{% endblock %}
 
 {% block body %}
-    <h1>Create new Recette</h1>
-
-    {{ include('admin_recette/_form.html.twig') }}
-
-    <a href="{{ path('app_admin_recette_index') }}">back to list</a>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Créer une recette</h2>
+                </div>
+                <div class="card-body">
+                    {{ include('admin_recette/_form.html.twig') }}
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('app_admin_recette_index') }}" class="btn btn-primary">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

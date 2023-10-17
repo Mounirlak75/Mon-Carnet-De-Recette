@@ -1,40 +1,29 @@
-{% extends 'base.html.twig' %}
-
-{% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('styles.css') }}">
-{% endblock %}
-
-{% block title %}{% endblock %}
-
-{% block body %}
-
-	<footer>
-		<div class="container-fluid">
-			<footer class="footer-custom">
-				<ul class="nav justify-content-center bg-light">
-					<li class="fs-6">
-						<a href=" /a-propos " class="nav-link px-2 fs-6">• À propos</a>
-					</li>
-					<li class="">
-						<a href=" /contact " class="nav-link px-2 fs-6">• Contactez-nous</a>
-					</li>
-					<li class="">
-						<a href=" /politique-de-confidetialite " class="nav-link px-2 fs-6">• Politique de confidentialité</a>
-					</li>
-					<li class="">
-						<a href=" /cgu " class="nav-link px-2 fs-6">• CGU</a>
-					</li>
-					<li class="">
-						<a href=" /rgpd " class="nav-link px-2 fs-6">• RGPD</a>
-					</li>
-				</ul>
-				<p class="text-center text-muted">&copy;
-					<script>
-						document.write(new Date().getFullYear());
-					</script>
-					Mon Carnet de recettes - Tous droits réservés
-				</p>
-			</div>
+<footer class="footer-custom" style="background-color: #faf3e0;">
+	<div class="container-fluid">
+		<div class="footer-custom">
+			<ul class="nav justify-content-center">
+				<li class="">
+					<a href="{{ path('app_apropos') }}" class="nav-link px-2 fs-6">• À propos</a>
+				</li>
+				<li class="">
+					<a href="{{ path('app_contact') }}" class="nav-link px-2 fs-6">• Contactez-nous</a>
+				</li>
+				<li class="">
+					<a href="{{ path('app_politique_de_confidentialit_') }}" class="nav-link px-2 fs-6">• Politique de confidentialité</a>
+				</li>
+				<li class="">
+					<a href="{{ path('app_cgu') }}" class="nav-link px-2 fs-6">• CGU</a>
+				</li>
+				<li class="">
+					<a href="{{ path('app_rgpd') }}" class="nav-link px-2 fs-6">• RGPD</a>
+				</li>
+			</ul>
+			<p class="text-center text-muted">&copy;
+				<script>
+					document.write(new Date().getFullYear());
+				</script>
+				Mon Carnet de recettes - Tous droits réservés
+			</p>
 		</div>
-	</footer>
-{% endblock %}
+	</div>
+</footer>

@@ -45,4 +45,20 @@ class RecetteRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+   /**
+    * @return Recette[] Returns an array of Recette objects
+    */
+   public function findBySearch(?string $text): array
+   {
+    if (!$text) {
+        return [];  // retourne un tableau vide si $text est null ou une chaîne vide
+    }
+       return $this->createQueryBuilder('r')
+           ->andWhere('r.titre LIKE :val')
+           ->setParameter('val', "%$text%")
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 }

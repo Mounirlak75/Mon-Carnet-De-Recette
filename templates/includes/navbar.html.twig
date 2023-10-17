@@ -1,49 +1,79 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}{% endblock %}
-
-{% block body %}
-	<nav class="navbar navbar-expand-lg bg-light fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="/">
-				<i class="fas fa-book"></i>
-				MCDR
-			</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-				<i class="fas fa-bars"></i>
-			</button>
-			<div class="collapse navbar-collapse " id="navbarColor03">
-				<ul class="navbar-nav  me-auto">
+<nav class="navbar navbar-expand-lg bg-light fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="/">
+			<i class="fas fa-book"></i>
+			MCDR
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+			<i class="fas fa-bars"></i>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarColor03">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item">
+					<a class="nav-link btn btn-outline-primary" href="{{ path('app_home') }}">
+						<i class="fas fa-home" style="color: #f2e4d8;"></i>
+						Accueil
+					</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle btn btn-outline-primary" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-folder-open" style="color: #f2e4d8;"></i>
+						Recettes
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="{{ path('app_recette_index') }}">les recettes</a>
+						<a class="dropdown-item" href="{{ path('app_recherche') }}">Rechercher une recette</a>
+					</div>
+				</li>
+				{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 					<li class="nav-item">
-						<a class="nav-link" href="/">
-							<i class="fas fa-home" style="color: #f2e4d8;"></i>
-							<button type="button" class="btn btn-outline-primary">Accueil</button>
+						<a class="nav-link btn btn-outline-primary" href="{{ path('app_profile_show') }}">
+							<i class="fas fa-user" style="color: #f2e4d8;"></i>
+							Profile
 						</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link">
-							<i class="fas fa-folder-open" style="color: #f2e4d8;"></i>
-							<button type="button" class="btn btn-outline-primary">Recettes</button>
+				{% endif %}
+				{% if is_granted('ROLE_ADMIN') %}
+					<li class="nav-item dropdown">
+						<a class="nav-link btn btn-outline-primary dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+							<i class="fas fa-hammer" style="color: #f2e4d8;"></i>
+							Administrations
 						</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="{{ path('app_admin_categorie_index') }}">Catégories</a>
+							<a class="dropdown-item" href="{{ path('app_admin_recette_index') }}">Recettes</a>
+							<a class="dropdown-item" href="{{ path('app_admin_commentaire_index') }}">Commentaires</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{{ path('app_admin_user_index') }}">Utilisateurs</a>
+						</div>
 					</li>
 				</ul>
 			</div>
-			<div class="collapse navbar-collapse dd-flex justify-content-end flex-grow-0" id="navbarColor03">
-				<ul class="navbar-nav  me-auto">
+		{% endif %}
+		<div class="collapse navbar-collapse dd-flex justify-content-end flex-grow-0" id="navbarColor03">
+			<ul class="navbar-nav  me-auto">
+				{% if not app.user %}
 					<li class="nav-item">
-						<a class="nav-link" href="/login">
-							<i class="fas fa-users" style="color: #f2e4d8;" ></i>
-							<button type="button" class="btn btn-outline-primary">Se Connecter</button>
+						<a class="nav-link btn btn-outline-primary" href="/login">
+							<i class="fas fa-users" style="color: #f2e4d8;"></i>
+							Connexion
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/register">
+						<a class="nav-link btn btn-outline-primary" href="/register">
 							<i class="fas fa-user-plus" style="color: #f2e4d8;"></i>
-							<button type="button" class="btn btn-outline-primary">Inscription</button>
+							Inscription
 						</a>
 					</li>
-				</ul>
-			</div>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link btn btn-outline-primary" href="{{ path('app_logout') }}">
+							<i class="fas fa-sign-out-alt" style="color: #f2e4d8;"></i>
+							Déconnexion
+						</a>
+					</li>
+				{% endif %}
+			</ul>
 		</div>
-	</nav>
-{% endblock %}
+	</div>
+</nav>

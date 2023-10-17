@@ -17,6 +17,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
+
+//La méthode verifyUserEmail est définie pour gérer la vérification de l'e-mail de l'utilisateur. Elle vérifie que l'utilisateur est authentifié, puis valide le lien de confirmation d'e-mail en utilisant le service EmailVerifier. Si la validation échoue, l'utilisateur est redirigé vers la page d'enregistrement avec un message d'erreur. Si la validation réussit, l'utilisateur est redirigé vers une page de succès avec un message de succès.
 {
     private EmailVerifier $emailVerifier;
 
@@ -25,15 +27,19 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
+    // Action pour l'enregistrement d'un nouvel utilisateur
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        // Crée une nouvelle instance de l'entité User
         $user = new User();
+        
+        // Crée un formulaire d'enregistrement en utilisant RegistrationFormType
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // Encode le mot de passe en utilisant le service UserPasswordHasherInterface
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -41,10 +47,11 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // Enregistre l'utilisateur dans la base de données
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // generate a signed url and email it to the user
+            // Envoie un e-mail de confirmation à l'utilisateur
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('no-reply@mcdr.com', 'No Reply'))
@@ -52,22 +59,25 @@ class RegistrationController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
 
+            // Redirige l'utilisateur vers la page d'accueil après l'enregistrement
             return $this->redirectToRoute('app_home');
         }
 
+        // Rend la vue Twig 'registration/register.html.twig' en passant le formulaire d'enregistrement
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
 
+    // Action pour vérifier l'e-mail de l'utilisateur
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
+        // Vérifie que l'utilisateur est authentifié
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        // validate email confirmation link, sets User::isVerified=true and persists
+        // Valide le lien de confirmation d'e-mail, définit User::isVerified=true et persiste
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
         } catch (VerifyEmailExceptionInterface $exception) {
@@ -76,7 +86,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
+        // Redirige l'utilisateur vers une page de succès après la vérification de l'e-mail
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_register');

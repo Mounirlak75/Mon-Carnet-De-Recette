@@ -1,4 +1,13 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'mt-4'}}) }}
+
+    {% for field in form.children %}
+        <div class="form-group">
+            {{ form_label(field, null, {'label_attr': {'class': 'form-control-label'}}) }}
+            {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(field) }}
+        </div>
+    {% endfor %}
+
+    <button class="btn btn-primary">{{ button_label|default('Valider') }}</button>
+
 {{ form_end(form) }}

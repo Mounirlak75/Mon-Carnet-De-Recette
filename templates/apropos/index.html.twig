@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos - Mon Carnet De Recette{% endblock %}
+
+{% block body %}
+    <h1 class="text-center mb-5">À propos de nous</h1>
+
+    <div class="row align-items-stretch">
+        <div class="col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+            <img class="illustration-img img-fluid" src="assets/images/apropos.svg" alt="Illustration de Mon Carnet De Recette" style="max-height:100%;">
+        </div>
+        <div class="col-md-6 col-sm-12 mt-5">
+            <h2 class="text-center">Nous sommes MCDR - Mon Carnet De Recette</h2>
+            <p class="text-center">
+                Bienvenue sur Mon Carnet de Recette. Notre plateforme est votre espace privilégié pour consigner, explorer et partager vos recettes culinaires préférées. Dans un univers où la cuisine est un art, une passion et un moyen de rassembler, nous avons créé cet espace pour vous, les gourmets et gourmands du quotidien.
+            </p>
+            <p class="text-center">
+                Redécouvrez le plaisir de cuisiner avec des recettes authentiques, mettez en avant vos créations gourmandes, et échangez avec notre communauté passionnée. Chaque plat a une histoire, chaque recette est une aventure. Ensemble, faisons vivre ces délicieuses épopées culinaires.
+            </p>
+            <p class="text-center">
+                Si vous désirez prendre contact avec nous, <a href="{{ path('app_contact') }}">c'est par ici</a>.
+            </p>
+            <p class="text-center">
+                Avec toute notre affection culinaire,<br>
+                L'équipe MCDR.
+            </p>
+        </div>
+    </div>
+{% endblock %}

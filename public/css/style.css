@@ -1,34 +1,123 @@
 /********************* IMAGE DE LA HOME PAGE  *****************/
+body {
+    background-color: #faf3e0;
+}
+
 .background-section {
     background-image: url(../assets/images/backgroundMCDR.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
-    color:rgb(255, 255, 255);
-    
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.4);
+    background-blend-mode: multiply;
+
 }
 
 .navbar-brand {
-    color:rgb(163, 102, 10) 
+    color: rgb(163, 102, 10)
 }
-.lead{
+
+.lead {
     text-align: center;
     flex-direction: column;
 }
+
 .illustration-img-home {
     max-width: 250px;
     width: 100%;
     max-height: 300px;
     height: 100%;
 }
-.container{
-    color:rgb(200 180 150);
+
+.container {
+    color: rgb(200 180 150);
 }
 
-/* Path: public/css/style.css */
 
-footer{
+
+footer {
     margin-top: 100px;
     padding: 0;
+}
+
+.my-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: rgb(200 180 150);
+    color: white
+}
+
+.btn-primary:hover {
+    background-color: rgb(163, 102, 10)
+}
+
+.box-shadowed {
+    padding: 20px;
+    background-color: #555555;
+    /* Choisissez la couleur de fond de votre choix */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    /* Pour avoir des coins arrondis, ajustez selon vos préférences */
+}
+
+
+
+.nav-link {
+    color: #333;
+    /* Couleur du texte pour une meilleure lisibilité sur fond clair */
+    transition: color 0.3s ease;
+    /* Transition douce pour le survol */
+}
+
+.nav-link:hover {
+    color: #555;
+    /* Couleur de survol */
+}
+
+
+.main-content-container {
+    max-width: 80%;
+    /* Adjust this value to your preference */
+    margin: 0 auto;
+    /* This centers the content */
+    padding: 20px;
+    /* Optional padding for some spacing */
+}
+
+.main-content-container h1 {
+    margin-bottom: 20px;
+    /* Optional margin to make the heading look nice */
 }

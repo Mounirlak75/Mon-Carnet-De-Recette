@@ -1,0 +1,34 @@
+{# templates/recette/mes_recettes.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes recettes{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">Mes recettes</h1>
+    
+    {% if recettes|length > 0 %}
+        <div class="row">
+            {% for recette in recettes %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        {% if recette.imageName %}
+                            <img src="{{ asset('assets/images/uploads/recettes/' ~ recette.imageName) }}" alt="{{ recette.titre }}" class="card-img-top">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recette.titre }}</h5>
+                            <p class="card-text">{{ recette.description|length > 100 ? recette.description|slice(0, 100) ~ '...' : recette.description }}</p>
+                            <a href="{{ path('app_recette_show', {'id': recette.id}) }}" class="btn btn-primary">Voir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            Vous n'avez pas encore de recette.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

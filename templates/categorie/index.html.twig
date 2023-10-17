@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie index{% endblock %}
+
+{% block body %}
+    <h1>Les catégories disponibles sur notre site !</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom de la catégorie</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.name }}</td>
+                <td>
+                    <a href="{{ path('app_categorie_show', {'id': categorie.id}) }}">Consulter la liste des recettes</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucune catégorie disponible</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

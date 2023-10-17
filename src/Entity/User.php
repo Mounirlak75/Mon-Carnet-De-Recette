@@ -10,9 +10,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cet e-mail.')]
+#[UniqueEntity(fields: ['name'], message: "Ce nom d'utilisateur est déjà pris.")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -36,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $recettes;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commentaire::class)]
-    private Collection $commentaire;
+    private Collection $commentairesPostes;
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->recettes = new ArrayCollection();
-        $this->commentaire = new ArrayCollection();
+        $this->commentairesPostes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -60,7 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -83,13 +83,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        // Garantit que chaque utilisateur a au moins le rôle ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): static
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
@@ -104,7 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $password): self
     { 
         $this->password = $password;
 
@@ -116,7 +116,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
+        // Si vous stockez des données temporaires sensibles sur l'utilisateur, effacez-les ici
         // $this->plainPassword = null;
     }
 
@@ -128,7 +128,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->recettes;
     }
 
-    public function addRecette(Recette $recette): static
+    public function addRecette(Recette $recette): self
     {
         if (!$this->recettes->contains($recette)) {
             $this->recettes->add($recette);
@@ -138,10 +138,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeRecette(Recette $recette): static
+    public function removeRecette(Recette $recette): self
     {
         if ($this->recettes->removeElement($recette)) {
-            // set the owning side to null (unless already changed)
+            // Définit le côté propriétaire à null (sauf s'il a déjà été modifié)
             if ($recette->getUser() === $this) {
                 $recette->setUser(null);
             }
@@ -153,27 +153,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Commentaire>
      */
-    public function getCommentaire(): Collection
+    public function getCommentairesPostes(): Collection
     {
-        return $this->commentaire;
+        return $this->commentairesPostes;
     }
 
-    public function addCommentaire(Commentaire $commentaire): static
+    public function addCommentairesPostes(Commentaire $commentairesPostes): self
     {
-        if (!$this->commentaire->contains($commentaire)) {
-            $this->commentaire->add($commentaire);
-            $commentaire->setUser($this);
+        if (!$this->commentairesPostes->contains($commentairesPostes)) {
+            $this->commentairesPostes->add($commentairesPostes);
+            $commentairesPostes->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeCommentaire(Commentaire $commentaire): static
+    public function removeCommentairesPostes(Commentaire $commentairesPostes): self
     {
-        if ($this->commentaire->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getUser() === $this) {
-                $commentaire->setUser(null);
+        if ($this->commentairesPostes->removeElement($commentairesPostes)) {
+            // Définit le côté propriétaire à null (sauf s'il a déjà été modifié)
+            if ($commentairesPostes->getUser() === $this) {
+                $commentairesPostes->setUser(null);
             }
         }
 
@@ -185,7 +185,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->isVerified;
     }
 
-    public function setIsVerified(bool $isVerified): static
+    public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
 
@@ -197,7 +197,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -206,8 +206,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __toString(): string
     {
-        return $this->email;
+        return $this->name;
     }
 }
-
-

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie
+{% endblock %}
+
+{% block body %}
+	<h1>{{ categorie.name }}</h1>
+
+	<a href="{{ path('app_categorie_index') }}">Returner a la liste des categories</a>
+
+	    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Temps de preparation</th>
+                <th>Temps de cuisson</th>
+                <th>Difficulte</th>
+                <th>Ingredient</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for recette in recettes %}
+            <tr>
+                <td>{{ recette.id }}</td>
+                <td>{{ recette.titre }}</td>
+                <td>{{ recette.description }}</td>
+                <td>{{ recette.tempsDePreparation }}</td>
+                <td>{{ recette.tempsDeCuisson }}</td>
+                <td>{{ recette.difficulte }}</td>
+                <td>{{ recette.ingredient }}</td>
+                <td>
+                    <a href="{{ path('app_recette_show', {'id': recette.id}) }}">Voir la recette</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">Nous n'avons pas trouvé de recette</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur MCDR{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+	<div class="box-shadowed">
+		<div class="row text-center">
+			<h1 class="mt-5">
+				Bienvenue {{ app.user.name }} !
+			</h1>
+		</div>
+
+		<section class="jumbotron text-center">
+			<div class="container">
+				<p class="lead text-muted">Que souhaitez-vous faire maintenant ?</p>
+				<p>
+					<a href="{{ path('app_recette_new') }}" class="btn btn-outline-warning rounded-pill my-2">
+						<i class="fas solid fa-plus" style="color: #f2e4d8;"></i>
+						Créer une recette</a>
+					<a href="{{ path('app_recette_index') }}" class="btn btn-outline-warning rounded-pill my-2">
+						<i class="fa-sharp fas solid fa-eye" style="color: #f2e4d8;"></i>
+						&nbsp;Consulter les recettes</a>
+				</p>
+				<a href="{{ path('app_home') }}">Aller à l'accueil</a>
+				|
+				<a href="{{ path('app_profile_show') }}">Consulter mon compte</a>
+			</div>
+		</section>
+	</div>
+</div>
+{% endblock %}

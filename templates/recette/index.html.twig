@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crée votre recette !
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center">Crée votre recette en toute simplicité !</h1>
+
+	<h2 class="btn btn-outline-warning rounded-pill my-2">il y'a
+		{{ nombreRecettes }}
+		recettes</h2>
+
+	<div class="row my-5">
+		{% for recette in recettes %}
+			<div class="col-md-4 mb-4">
+				<div class="card text-center">
+					{% if recette.imageName %}
+						<img src="{{ asset('assets/images/uploads/recettes/' ~ recette.imageName) }}" width="auto" height="200"/>
+					{% endif %}
+					<div class="card-body">
+						<h5 class="card-title">{{ recette.titre }}</h5>
+						<strong>
+							<i class="fas fa-clock" style="color: #a3660a;"></i>
+							Temps de préparation:
+						</strong>
+						{{ recette.tempsDePreparation }}</p>
+					<p class="card-text">
+						<strong>
+							<i class="fas fa-fire" style="color: #a3660a;"></i>
+							Temps de cuisson:
+						</strong>
+						{{ recette.tempsDeCuisson }}
+					</p>
+					<p class="card-text">
+						<i class="fas fa-star" style="color: #a3660a;"></i>
+						<strong>Difficulté:</strong>
+						{{ recette.difficulte }}
+					</p>
+					<p class="card-text">
+						<a href="{{ path('app_recette_show', {'id': recette.id}) }}" class="btn btn-primary">Voir</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<div class="col-md-12 text-center">
+			<p>Aucun résultat</p>
+		</div>
+	{% endfor %}
+</div>
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
+	<a href="{{ path('app_recette_new') }}" class="btn btn-primary">Crée nouvelle recette</a>
+{% endif %}{% endblock %}
